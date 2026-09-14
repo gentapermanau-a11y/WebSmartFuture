@@ -1,0 +1,215 @@
+/* =========================================
+   NEXUS 2040 - CSS MASTER FILE
+   By: 11 RPL 1 - SMKN 1 Katapang
+   ========================================= */
+
+/* --- 1. CSS VARIABLES (Tema Futuristik) --- */
+:root {
+    --bg-dark: #050507;
+    --text-primary: #e0e6ed;
+    --text-secondary: #8a94a5;
+    --neon-cyan: #00f3ff;
+    --neon-green: #00ff66;
+    --glass-bg: rgba(16, 20, 31, 0.65);
+    --glass-border: rgba(0, 243, 255, 0.15);
+    --transition-fast: 0.3s ease;
+}
+
+/* --- 2. RESET & TYPOGRAPHY --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    /* Latar belakang grid ala blueprint cyber */
+    background-image: 
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+h1, h2, h3, .logo, .btn-calc {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+}
+
+/* --- 3. NAVBAR (Glassmorphism Effect) --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5vw;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px); /* Efek kaca buram */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+nav .logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--neon-cyan);
+    text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+    animation: pulseGlow 2s infinite alternate;
+}
+
+/* --- 4. HERO SECTION --- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    background: radial-gradient(circle at center, rgba(0,243,255,0.1) 0%, transparent 60%);
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: #fff;
+    text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+    margin-bottom: 10px;
+}
+
+/* Target untuk animasi JavaScript */
+#animated-text {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--neon-green);
+    min-height: 40px;
+    margin-bottom: 30px;
+}
+
+/* Kursor berkedip untuk efek ketik */
+.cursor-blink::after {
+    content: '|';
+    color: var(--neon-cyan);
+    animation: blink 1s step-end infinite;
+}
+
+/* --- 5. CARDS & GRID (Ekosistem 2040) --- */
+.section {
+    padding: 100px 5vw;
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--neon-cyan);
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 40px 30px;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efek garis bercahaya saat kartu di-hover */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; height: 0;
+    background: var(--neon-cyan);
+    transition: var(--transition-fast);
+}
+
+.card:hover::before {
+    height: 100%;
+    box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+}
+
+.card h3 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* --- 6. TIMELINE (Pixel to Reality) --- */
+.timeline {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.step {
+    text-align: center;
+    width: 250px;
+    padding: 20px;
+    background: rgba(0, 255, 102, 0.05);
+    border: 1px dashed var(--neon-green);
+    border-radius: 12px;
+}
+
+.step-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* --- 7. KEYFRAME ANIMATIONS --- */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes pulseGlow {
+    0% { text-shadow: 0 0 10px rgba(0,243,255,0.2); }
+    100% { text-shadow: 0 0 20px rgba(0,243,255,0.8), 0 0 30px rgba(0,243,255,0.6); }
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* --- 8. RESPONSIVE DESIGN (Mobile Friendly) --- */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+    
+    .timeline {
+        flex-direction: column;
+        align-items: center;
+    }
+}

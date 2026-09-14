@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Transport & Advanced Analytics Grid | NEXUS 2040</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --bg-card: #12141d;
+            --text-main: #c5c6c7;
+            --neon-blue: #66fcf1;
+            --neon-dark: #45a29e;
+            --neon-green: #39ff14;
+            --neon-red: #ff3333;
+            --neon-yellow: #ffcc00;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            background-image: 
+                linear-gradient(rgba(102, 252, 241, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 252, 241, 0.015) 1px, transparent 1px);
+            background-size: 40px 40px;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-dark);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-blue);
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: rgba(11, 12, 16, 0.95);
+            border-bottom: 1px solid var(--neon-dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+        }
+
+        nav .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            text-decoration: none;
+            text-shadow: 0 0 12px var(--neon-blue);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+
+        /* Header / Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(69, 162, 158, 0.1), rgba(11, 12, 16, 0.8));
+            border: 1px solid var(--neon-dark);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(69, 162, 158, 0.15);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: radial-gradient(circle, rgba(102, 252, 241, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            font-size: 2.8rem;
+            margin: 0 0 15px 0;
+            text-shadow: 0 0 15px rgba(102, 252, 241, 0.4);
+            letter-spacing: 1px;
+        }
+
+        p.lead {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 850px;
+            color: #d1d2d3;
+        }
+
+        /* Section Headings */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0 25px 0;
+            border-bottom: 1px solid rgba(69, 162, 158, 0.3);
+            padding-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-size: 1.6rem;
+            margin: 0;
+            border-left: 4px solid var(--neon-blue);
+            padding-left: 15px;
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.2);
+        }
+
+        .section-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+            background: rgba(57, 255, 20, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--neon-green);
+        }
+
+        /* Grid Controls */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .control-card {
+            background: var(--bg-card);
+            border: 1px solid var(--neon-dark);
+            padding: 30px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .control-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(69, 162, 158, 0.35);
+            transform: translateY(-6px);
+        }
+
+        .control-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-val {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-ctrl {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-ctrl:hover {
+            background: var(--neon-blue);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .active-state {
+            background: var(--neon-green) !important;
+            color: #0b0c10 !important;
+            border-color: var(--neon-green) !important;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        /* Analytics Section with Charts & Stats */
+        .analytics-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .analytics-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .analytics-container {
+            background: var(--bg-card);
+            border: 1px solid var(--neon-dark);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .chart-item {
+            margin-bottom: 25px;
+        }
+
+        .chart-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .chart-bar-bg {
+            width: 100%;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(69, 162, 158, 0.3);
+        }
+
+        .chart-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-dark), var(--neon-blue));
+            border-radius: 8px;
+            transition: width 1.2s cubic-bezier(0.1, 0.8, 0.3, 1);
+        }
+
+        .chart-bar-fill.green {
+            background: linear-gradient(90deg, #165b33, var(--neon-green));
+        }
+
+        .chart-bar-fill.yellow {
+            background: linear-gradient(90deg, #8a7300, var(--neon-yellow));
+        }
+
+        /* Metric Side Panel */
+        .metric-side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .metric-box {
+            background: var(--bg-card);
+            border: 1px solid var(--neon-dark);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .metric-box:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(69, 162, 158, 0.3);
+        }
+
+        .metric-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            color: var(--neon-blue);
+            margin: 10px 0 5px 0;
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+        }
+
+        .metric-title {
+            font-size: 1rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Route Table */
+        .table-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--neon-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .route-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .route-table th, .route-table td {
+            padding: 18px 25px;
+            border-bottom: 1px solid rgba(69, 162, 158, 0.2);
+        }
+
+        .route-table th {
+            font-family: 'Orbitron', sans-serif;
+            background: rgba(69, 162, 158, 0.15);
+            color: var(--neon-blue);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .route-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .route-table tr:hover {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-optimal { 
+            background: rgba(57, 255, 20, 0.12); 
+            color: var(--neon-green); 
+            border: 1px solid var(--neon-green); 
+        }
+        .badge-busy { 
+            background: rgba(255, 204, 0, 0.12); 
+            color: var(--neon-yellow); 
+            border: 1px solid var(--neon-yellow); 
+        }
+        .badge-maintenance { 
+            background: rgba(255, 51, 51, 0.12); 
+            color: var(--neon-red); 
+            border: 1px solid var(--neon-red); 
+        }
+
+        /* Terminal Console for Telemetry */
+        .terminal-container {
+            background: #07080a;
+            border: 1px solid var(--neon-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.8);
+        }
+
+        .terminal-header {
+            background: rgba(69, 162, 158, 0.2);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--neon-dark);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--neon-blue);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 20px 25px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            color: var(--neon-green);
+            height: 220px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+
+        .log-entry {
+            margin-bottom: 6px;
+        }
+
+        .log-timestamp {
+            color: var(--neon-blue);
+            margin-right: 10px;
+        }
+
+        .log-warn {
+            color: var(--neon-yellow);
+        }
+
+        /* Architecture Specification Box */
+        .spec-box {
+            background: var(--bg-card);
+            padding: 35px;
+            border-left: 5px solid var(--neon-green);
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        .spec-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .spec-box ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .spec-box li {
+            margin-bottom: 12px;
+        }
+
+        .spec-box li strong {
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+        }
+
+        /* Footer & Back Button */
+        .footer-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 30px;
+            background: var(--neon-blue);
+            color: var(--bg-color);
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 6px;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .back-btn:hover {
+            box-shadow: 0 0 20px var(--neon-blue);
+            background: #fff;
+        }
+
+        .system-info-footer {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--neon-dark);
+            text-align: right;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            nav { padding: 15px 25px; }
+            .nav-links { display: none; }
+            .container { padding: 0 15px; }
+            .hero-section { padding: 25px; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html" class="logo">NEXUS 2040</a>
+        <ul class="nav-links">
+            <li><a href="smarthome.html">Smart Home</a></li>
+            <li><a href="aiassistant.html">AI Hologram</a></li>
+            <li><a href="energy.html">Energy Grid</a></li>
+            <li><a href="green.html">Eco-Biosphere</a></li>
+            <li><a href="transportasi.html" style="color: var(--neon-blue); text-shadow: 0 0 8px var(--neon-blue);">Transport Grid</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>🚄 Smart Transport & Autonomous Grid</h1>
+            <p class="lead">Pusat kendali mobilitas perkotaan masa depan skala penuh. Kelola operasional kereta maglev kecepatan tinggi, armada taksi udara otonom, jaringan pipa hiper-logistik, dan pemantauan lalu lintas neural terpusat yang terintegrasi secara real-time melalui <strong>Nexus Key</strong>.</p>
+        </div>
+
+        <!-- Section 01: Core Control Panels -->
+        <div class="section-header">
+            <h2 class="section-title">01 Panel Kontrol Sektor Utama</h2>
+            <span class="section-badge">● Sistem Otonom Aktif</span>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Control Card 1: Quantum Maglev -->
+            <div class="control-card">
+                <h3>🚄 Quantum Maglev</h3>
+                <div id="maglev-status" class="status-val" style="color: var(--neon-green);">MELAJU (850 km/h)</div>
+                <p style="font-size: 0.95rem; color: #a0a0a0; margin-bottom: 20px;">Sistem levitasi magnetik tanpa gesekan antar distrik utama kota.</p>
+                <button class="btn-ctrl active-state" id="maglev-btn" onclick="toggleMaglev()">MODE ECO</button>
+            </div>
+
+            <!-- Control Card 2: Autonomous Drone Taxi -->
+            <div class="control-card">
+                <h3>🛸 Aero-Taxi Fleet</h3>
+                <div id="drone-status" class="status-val" style="color: var(--neon-blue);">142 UNIT SIAGA</div>
+                <p style="font-size: 0.95rem; color: #a0a0a0; margin-bottom: 20px;">Armada taksi udara nirawak berbasis kecerdasan buatan.</p>
+                <button class="btn-ctrl" onclick="launchDrone()">KIRIM ARMADA</button>
+            </div>
+
+            <!-- Control Card 3: Neural Traffic AI -->
+            <div class="control-card">
+                <h3>🚦 Neural Traffic AI</h3>
+                <div id="traffic-status" class="status-val" style="color: var(--neon-green);">LANCAR (OPTIMAL)</div>
+                <p style="font-size: 0.95rem; color: #a0a0a0; margin-bottom: 20px;">Pengaturan jalur dan lampu lalu lintas prediktif berbasis neural network.</p>
+                <button class="btn-ctrl active-state" id="traffic-btn" onclick="toggleTraffic()">OVERRIDE MANUAL</button>
+            </div>
+
+            <!-- Control Card 4: Hyper-Tube Cargo -->
+            <div class="control-card">
+                <h3>📦 Hyper-Tube Cargo</h3>
+                <div id="cargo-status" class="status-val" style="color: var(--neon-green);">MAKSIMAL (1200 t/h)</div>
+                <p style="font-size: 0.95rem; color: #a0a0a0; margin-bottom: 20px;">Distribusi logistik barang bawah tanah berkecepatan tinggi.</p>
+                <button class="btn-ctrl active-state" id="cargo-btn" onclick="toggleCargo()">MODE STABIL</button>
+            </div>
+
+            <!-- Control Card 5: Sub-Orbital Pods -->
+            <div class="control-card">
+                <h3>🚀 Sub-Orbital Pods</h3>
+                <div id="pod-status" class="status-val" style="color: var(--neon-blue);">SIAGA (STANDBY)</div>
+                <p style="font-size: 0.95rem; color: #a0a0a0; margin-bottom: 20px;">Transportasi jarak jauh antar benua melalui orbit rendah atmosfer.</p>
+                <button class="btn-ctrl" onclick="togglePods()">LUNCURKAN POD</button>
+            </div>
+
+            <!-- Control Card 6: Kinetic Grid Bypass -->
+            <div class="control-card">
+                <h3>⚡ Kinetic Path Bypass</h3>
+                <div id="kinetic-status" class="status-val" style="color: var(--neon-green);">TERHUBUNG (100%)</div>
+                <p style="font-size: 0.95rem; color: #a0a0a0; margin-bottom: 20px;">Konversi energi langkah pejalan kaki untuk suplai jalur transit.</p>
+                <button class="btn-ctrl active-state" id="kinetic-btn" onclick="toggleKineticGrid()">OPTIMASI ULANG</button>
+            </div>
+        </div>
+
+        <!-- Section 02: Analytics & Performance Metrics -->
+        <div class="section-header">
+            <h2 class="section-title">02 Data Analitik & Beban Jaringan Harian</h2>
+            <span class="section-badge">● Telemetri Live</span>
+        </div>
+
+        <div class="analytics-layout">
+            <!-- Visual Chart Bars Container -->
+            <div class="analytics-container">
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span>Distribusi Kapasitas Maglev Alpha-Gamma</span>
+                        <span style="color: var(--neon-blue);">84%</span>
+                    </div>
+                    <div class="chart-bar-bg">
+                        <div class="chart-bar-fill" style="width: 84%;"></div>
+                    </div>
+                </div>
+
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span>Efisiensi Energi Jaringan Transportasi</span>
+                        <span style="color: var(--neon-green);">96.8%</span>
+                    </div>
+                    <div class="chart-bar-bg">
+                        <div class="chart-bar-fill green" style="width: 96.8%;"></div>
+                    </div>
+                </div>
+
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span>Kepadatan Jalur Udara Aero-Taxi (Sektor 7)</span>
+                        <span style="color: var(--neon-yellow);">62%</span>
+                    </div>
+                    <div class="chart-bar-bg">
+                        <div class="chart-bar-fill yellow" style="width: 62%;"></div>
+                    </div>
+                </div>
+
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span>Tingkat Pengurangan Emisi Karbon Kota</span>
+                        <span style="color: var(--neon-green);">91.5%</span>
+                    </div>
+                    <div class="chart-bar-bg">
+                        <div class="chart-bar-fill green" style="width: 91.5%;"></div>
+                    </div>
+                </div>
+
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span>Kapasitas Pipa Logistik Hyper-Tube</span>
+                        <span style="color: var(--neon-blue);">78.3%</span>
+                    </div>
+                    <div class="chart-bar-bg">
+                        <div class="chart-bar-fill" style="width: 78.3%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metric Side Cards -->
+            <div class="metric-side-panel">
+                <div class="metric-box">
+                    <div class="metric-title">Total Penumpang Hari Ini</div>
+                    <div class="metric-value">1.428.910</div>
+                    <div style="font-size: 0.85rem; color: var(--neon-green);">↑ 12.4% dari kemarin</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-title">Kecepatan Rata-Rata Kota</div>
+                    <div class="metric-value">312 km/h</div>
+                    <div style="font-size: 0.85rem; color: var(--neon-blue);">Optimal Terkendali AI</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-title">Insiden Kecelakaan Lalu Lintas</div>
+                    <div class="metric-value">0</div>
+                    <div style="font-size: 0.85rem; color: var(--neon-green);">Sistem Otonom Sempurna</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 03: Comprehensive Route Status Table -->
+        <div class="section-header">
+            <h2 class="section-title">03 Monitor Status Rute Distrik Aktif</h2>
+            <span class="section-badge">● 10 Rute Terdaftar</span>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="route-table">
+                <thead>
+                    <tr>
+                        <th>ID Rute</th>
+                        <th>Destinasi Utama</th>
+                        <th>Moda Transportasi</th>
+                        <th>Kecepatan Operasional</th>
+                        <th>Kapasitas Muat</th>
+                        <th>Status Operasional</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>TR-01</strong></td>
+                        <td>Pusat Kota - Distrik Utara</td>
+                        <td>Quantum Maglev</td>
+                        <td>850 km/h</td>
+                        <td>94%</td>
+                        <td><span class="status-badge badge-optimal">OPTIMAL</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-02</strong></td>
+                        <td>Sky-Tower - Eco Biosphere</td>
+                        <td>Aero-Taxi Drone</td>
+                        <td>240 km/h</td>
+                        <td>62%</td>
+                        <td><span class="status-badge badge-optimal">OPTIMAL</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-03</strong></td>
+                        <td>Sub-Distrik Industrial Selatan</td>
+                        <td>Cargo Hyper-Tube</td>
+                        <td>950 km/h</td>
+                        <td>98%</td>
+                        <td><span class="status-badge badge-busy">PADAT TINGGI</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-04</strong></td>
+                        <td>Pelabuhan Kinetik - Residential</td>
+                        <td>Maglev Express</td>
+                        <td>800 km/h</td>
+                        <td>75%</td>
+                        <td><span class="status-badge badge-optimal">OPTIMAL</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-05</strong></td>
+                        <td>Orbit Station Terminal - CBD</td>
+                        <td>Sub-Orbital Pod</td>
+                        <td>4,200 km/h</td>
+                        <td>45%</td>
+                        <td><span class="status-badge badge-optimal">OPTIMAL</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-06</strong></td>
+                        <td>Sektor Barat - Universitas Teknologi</td>
+                        <td>Maglev Commuter</td>
+                        <td>600 km/h</td>
+                        <td>89%</td>
+                        <td><span class="status-badge badge-busy">PADAT TINGGI</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-07</strong></td>
+                        <td>Kawasan Wisata Dome - Pusat</td>
+                        <td>Aero-Taxi Fleet</td>
+                        <td>200 km/h</td>
+                        <td>50%</td>
+                        <td><span class="status-badge badge-optimal">OPTIMAL</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-08</strong></td>
+                        <td>Koridor Logistik Pelabuhan Utama</td>
+                        <td>Hyper-Tube Cargo</td>
+                        <td>1,000 km/h</td>
+                        <td>99%</td>
+                        <td><span class="status-badge badge-busy">PADAT TINGGI</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-09</strong></td>
+                        <td>Distrik Karantina Medis - Timur</td>
+                        <td>Emergency Bio-Pod</td>
+                        <td>750 km/h</td>
+                        <td>15%</td>
+                        <td><span class="status-badge badge-optimal">SIAGA DARURAT</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-10</strong></td>
+                        <td>Penghubung Antar Kota Sektor 9</td>
+                        <td>Quantum Maglev</td>
+                        <td>900 km/h</td>
+                        <td>88%</td>
+                        <td><span class="status-badge badge-maintenance">PEMELIHARAAN JALUR</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 04: Live Telemetry Terminal -->
+        <div class="section-header">
+            <h2 class="section-title">04 Terminal Telemetri & Log Sistem</h2>
+            <span class="section-badge">● Real-time Feed</span>
+        </div>
+
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <span>nexus-core-transport@v4.0.2040:~ (tty1)</span>
+                <span>SECURE LINK</span>
+            </div>
+            <div class="terminal-body" id="terminal-logs">
+                <div class="log-entry"><span class="log-timestamp">[09:18:01]</span>[INIT] Memuat modul kendali Quantum Maglev... Selesai.</div>
+                <div class="log-entry"><span class="log-timestamp">[09:18:04]</span>[CONNECT] Sinkronisasi server pusat dengan chip Nexus Key terverifikasi.</div>
+                <div class="log-entry"><span class="log-timestamp">[09:18:10]</span>[TRAFFIC] AI Neural mendeteksi kelancaran lalu lintas di seluruh koridor utama distrik.</div>
+                <div class="log-entry log-warn"><span class="log-timestamp">[09:18:22]</span>[WARN] Rute TR-10 memasuki jadwal pemeliharaan kuarsa magnetik berkala.</div>
+                <div class="log-entry"><span class="log-timestamp">[09:18:35]</span>[INFO] 142 Unit Aero-Taxi siap lepas landas di Sektor 7 tanpa hambatan cuaca.</div>
+                <div class="log-entry"><span class="log-timestamp">[09:18:50]</span>[STATUS] Seluruh parameter operasional kota berada dalam tingkat efisiensi 96.8%.</div>
+            </div>
+        </div>
+
+        <!-- Section 05: Architecture & Specifications -->
+        <div class="section-header">
+            <h2 class="section-title">05 Spesifikasi Arsitektur Teknologi</h2>
+            <span class="section-badge">● Standar ISO-2040</span>
+        </div>
+
+        <div class="spec-box">
+            <h3>Detail Arsitektur & Keunggulan Sistem Transportasi Nexus 2040:</h3>
+            <ul>
+                <li><strong>Quantum Maglev:</strong> Kereta super cepat tanpa gesekan menggunakan levitasi medan magnet kuantum, menghubungkan antar distrik kota dalam hitungan menit dengan standar keamanan absolut.</li>
+                <li><strong>Aero-Taxi Fleet:</strong> Taksi udara nirawak bertenaga listrik surya dan sel bahan bakar hidrogen dengan navigasi otonom penuh, mengeliminasi kemacetan jalan raya darat.</li>
+                <li><strong>Neural Traffic AI:</strong> Pengaturan lampu lalu lintas, pengalihan rute darurat, dan koordinasi kendaraan secara prediktif berbasis kecerdasan buatan terpusat.</li>
+                <li><strong>Hyper-Tube Cargo Network:</strong> Jaringan pipa vakum bawah tanah khusus pengiriman barang logistik berat berkecepatan tinggi untuk pasokan distrik komersial.</li>
+                <li><strong>Telemetri Waktu Nyata:</strong> Seluruh sensor rute dan unit kendaraan terhubung langsung ke server pusat NEXUS 2040 guna menjamin mobilitas warga yang lancar, aman, dan efisien.</li>
+            </ul>
+        </div>
+
+        <!-- Footer Action -->
+        <div class="footer-action">
+            <a href="index.html" class="back-btn">&larr; KEMBALI KE BERANDA</a>
+            <div class="system-info-footer">
+                NEXUS 2040 INFRASTRUCTURE SYSTEM<br>SECURE ID: TR-GRID-9942
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Interactive Controls & Live Logs -->
+    <script>
+        let maglevMax = true;
+        let droneCount = 142;
+        let trafficAI = true;
+        let cargoMode = true;
+        let podStatus = false;
+        let kineticActive = true;
+
+        function addTerminalLog(message, isWarn = false) {
+            const terminal = document.getElementById("terminal-logs");
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0];
+            const div = document.createElement("div");
+            div.classList.add("log-entry");
+            if(isWarn) div.classList.add("log-warn");
+            div.innerHTML = `<span class="log-timestamp">[${timeStr}]</span>${message}`;
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function toggleMaglev() {
+            maglevMax = !maglevMax;
+            const statusEl = document.getElementById("maglev-status");
+            const btnEl = document.getElementById("maglev-btn");
+            if(maglevMax) {
+                statusEl.textContent = "MELAJU (850 km/h)";
+                statusEl.style.color = "var(--neon-green)";
+                btnEl.classList.add("active-state");
+                btnEl.textContent = "MODE ECO";
+                addTerminalLog("[MAGLEV] Kecepatan dinaikkan ke kapasitas maksimum (850 km/h).");
+            } else {
+                statusEl.textContent = "STABIL (500 km/h)";
+                statusEl.style.color = "var(--neon-blue)";
+                btnEl.classList.remove("active-state");
+                btnEl.textContent = "MAKSIMALKAN";
+                addTerminalLog("[MAGLEV] Mode ECO diaktifkan, kestabilan optimal tercapai.");
+            }
+        }
+
+        function launchDrone() {
+            droneCount += 12;
+            if(droneCount > 220) droneCount = 100;
+            document.getElementById("drone-status").textContent = `${droneCount} UNIT SIAGA`;
+            addTerminalLog(`[AERO-TAXI] 12 unit tambahan dikerahkan. Total armada aktif: ${droneCount} unit.`);
+        }
+
+        function toggleTraffic() {
+            trafficAI = !trafficAI;
+            const statusEl = document.getElementById("traffic-status");
+            const btnEl = document.getElementById("traffic-btn");
+            if(trafficAI) {
+                statusEl.textContent = "LANCAR (OPTIMAL)";
+                statusEl.style.color = "var(--neon-green)";
+                btnEl.classList.add("active-state");
+                btnEl.textContent = "OVERRIDE MANUAL";
+                addTerminalLog("[TRAFFIC AI] Kendali neural AI dipulihkan sepenuhnya.");
+            } else {
+                statusEl.textContent = "MODE MANUAL (SIAGA)";
+                statusEl.style.color = "var(--neon-yellow)";
+                btnEl.classList.remove("active-state");
+                btnEl.textContent = "KEMBALIKAN KE AI";
+                addTerminalLog("[TRAFFIC AI] Peringatan: Sistem beralih ke mode manual pengawasan operator.", true);
+            }
+        }
+
+        function toggleCargo() {
+            cargoMode = !cargoMode;
+            const statusEl = document.getElementById("cargo-status");
+            const btnEl = document.getElementById("cargo-btn");
+            if(cargoMode) {
+                statusEl.textContent = "MAKSIMAL (1200 t/h)";
+                statusEl.style.color = "var(--neon-green)";
+                btnEl.classList.add("active-state");
+                btnEl.textContent = "MODE STABIL";
+                addTerminalLog("[CARGO] Pipa hiper-logistik berjalan pada kapasitas penuh (1200 ton/jam).");
+            } else {
+                statusEl.textContent = "STABIL (750 t/h)";
+                statusEl.style.color = "var(--neon-blue)";
+                btnEl.classList.remove("active-state");
+                btnEl.textContent = "MAKSIMALKAN";
+                addTerminalLog("[CARGO] Pipa hiper-logistik diturunkan ke mode stabil.");
+            }
+        }
+
+        function togglePods() {
+            podStatus = !podStatus;
+            const statusEl = document.getElementById("pod-status");
+            if(podStatus) {
+                statusEl.textContent = "MELUNCUR KE ORBIT";
+                statusEl.style.color = "var(--neon-green)";
+                addTerminalLog("[SUB-ORBITAL] Pod perjalanan antar benua berhasil diluncurkan ke orbit rendah.");
+                setTimeout(() => {
+                    podStatus = false;
+                    statusEl.textContent = "SIAGA (STANDBY)";
+                    statusEl.style.color = "var(--neon-blue)";
+                    addTerminalLog("[SUB-ORBITAL] Pod mendarat dengan selamat di dermaga tujuan.");
+                }, 5000);
+            } else {
+                addTerminalLog("[SUB-ORBITAL] Sistem peluncuran sedang mendinginkan termal roket kuantum.");
+            }
+        }
+
+        function toggleKineticGrid() {
+            kineticActive = !kineticActive;
+            const statusEl = document.getElementById("kinetic-status");
+            const btnEl = document.getElementById("kinetic-btn");
+            if(kineticActive) {
+                statusEl.textContent = "TERHUBUNG (100%)";
+                statusEl.style.color = "var(--neon-green)";
+                btnEl.classList.add("active-state");
+                btnEl.textContent = "OPTIMASI ULANG";
+                addTerminalLog("[KINETIC] Jaringan konversi langkah kaki terkalibrasi ulang.");
+            } else {
+                statusEl.textContent = "KALIBRASI (85%)";
+                statusEl.style.color = "var(--neon-yellow)";
+                btnEl.classList.remove("active-state");
+                btnEl.textContent = "HUBUNGKAN PENUH";
+                addTerminalLog("[KINETIC] Pemeliharaan sensor lantai kinetik distrik dimulai.", true);
+            }
+        }
+
+        // Simulasi update log berkala otomatis agar halaman hidup
+        setInterval(() => {
+            const randomEvents = [
+                "[TELEMETRI] Cek integritas magnetik jalur Maglev Alpha: AMAN.",
+                "[TRAFFIC] Penyeimbangan ulang beban kendaraan udara otonom berhasil.",
+                "[ENERGASI] Efisiensi grid transportasi stabil pada angka 96.8%.",
+                "[SECURITY] Chip Nexus Key mendeteksi otorisasi mulus di Sektor 4."
+            ];
+            const event = randomEvents[Math.floor(Math.random() * randomEvents.length)];
+            addTerminalLog(event);
+        }, 15000);
+    </script>
+</body>
+</html>
